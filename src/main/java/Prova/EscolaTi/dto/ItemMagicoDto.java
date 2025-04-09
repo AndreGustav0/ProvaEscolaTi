@@ -1,24 +1,20 @@
-package Prova.EscolaTi.entities;
+package Prova.EscolaTi.dto;
 
-import jakarta.persistence.*;
+import Prova.EscolaTi.entities.TipoItem;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "tb_itemMagico")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class ItemMagico {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class ItemMagicoDto {
     private UUID id;
     private String nome;
-
     @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;
     private int forca;
