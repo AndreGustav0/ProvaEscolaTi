@@ -20,6 +20,8 @@ public class ItemMagico {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String nome;
+
+    @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;
     private int forca;
     private int defesa;
