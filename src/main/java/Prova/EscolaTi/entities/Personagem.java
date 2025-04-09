@@ -22,7 +22,10 @@ public class Personagem {
     private UUID id;
     private String nome;
     private String nomePersonagem;
+
+    @Enumerated(EnumType.STRING)
     private Classe classe;
+
     private int level;
     private List<String> itemMagico;
     private int forca;
