@@ -123,4 +123,19 @@ public class PersonagemService {
         personagem.getItemMagico().add(item);
         personagemRepository.save(personagem);
     }
+
+    public void editar(long id, PersonagemDtoEntrada dtoEntrada){
+        Personagem personagem = personagemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
+
+        personagem.setNome(dtoEntrada.getNome());
+        personagem.setNomePersonagem(dtoEntrada.getNomePersonagem());
+
+        personagemRepository.save(personagem);
+    }
+
+    public void excluir(long id){
+        Personagem personagem = personagemRepository.findById(id).get();
+        personagemRepository.delete(personagem);
+    }
 }

@@ -31,8 +31,18 @@ public class PersonagemController {
         return personagemService.listarTodos();
     }
 
-    @PutMapping("{personagemId}/item-magico/{itemId}")
+    @PutMapping("/{personagemId}/item-magico/{itemId}")
     public void adicionaItem(@PathVariable long personagemId, @PathVariable long itemId){
         personagemService.adicionaItem(personagemId,itemId);
+    }
+
+    @PutMapping("/{id}")
+    public void editar(@PathVariable long id, @RequestBody PersonagemDtoEntrada dtoEntrada){
+        personagemService.editar(id, dtoEntrada);
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable long id){
+        personagemService.excluir(id);
     }
 }
