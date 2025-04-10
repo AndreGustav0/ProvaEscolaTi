@@ -101,6 +101,21 @@ public class PersonagemService {
         return dtos;
     }
 
+    public void editar(long id, PersonagemDtoEntrada dtoEntrada){
+        Personagem personagem = personagemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
+
+        personagem.setNome(dtoEntrada.getNome());
+        personagem.setNomePersonagem(dtoEntrada.getNomePersonagem());
+
+        personagemRepository.save(personagem);
+    }
+
+    public void excluir(long id){
+        Personagem personagem = personagemRepository.findById(id).get();
+        personagemRepository.delete(personagem);
+    }
+
     public void adicionaItem (long personagemId, long itemId){
         Personagem personagem = personagemRepository.findById(personagemId)
                 .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
@@ -124,18 +139,18 @@ public class PersonagemService {
         personagemRepository.save(personagem);
     }
 
-    public void editar(long id, PersonagemDtoEntrada dtoEntrada){
-        Personagem personagem = personagemRepository.findById(id)
+    public void removerItem(long personagemId, long itemId){
+        Personagem personagem = personagemRepository.findById(personagemId)
                 .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
 
-        personagem.setNome(dtoEntrada.getNome());
-        personagem.setNomePersonagem(dtoEntrada.getNomePersonagem());
+        ItemMagico item = itemMagicoRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item Mágico não encontrado"));
 
+        if(personagem.getItemMagico() == null){
+            throw new IllegalArgumentException("Pesonagem não tem nenhum item");
+        }
+
+        personagem.getItemMagico().remove(item);
         personagemRepository.save(personagem);
-    }
-
-    public void excluir(long id){
-        Personagem personagem = personagemRepository.findById(id).get();
-        personagemRepository.delete(personagem);
     }
 }

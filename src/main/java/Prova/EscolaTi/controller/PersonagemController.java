@@ -31,11 +31,6 @@ public class PersonagemController {
         return personagemService.listarTodos();
     }
 
-    @PutMapping("/{personagemId}/item-magico/{itemId}")
-    public void adicionaItem(@PathVariable long personagemId, @PathVariable long itemId){
-        personagemService.adicionaItem(personagemId,itemId);
-    }
-
     @PutMapping("/{id}")
     public void editar(@PathVariable long id, @RequestBody PersonagemDtoEntrada dtoEntrada){
         personagemService.editar(id, dtoEntrada);
@@ -44,5 +39,15 @@ public class PersonagemController {
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable long id){
         personagemService.excluir(id);
+    }
+
+    @PutMapping("/{personagemId}/adiciona-item-magico/{itemId}")
+    public void adicionaItem(@PathVariable long personagemId, @PathVariable long itemId){
+        personagemService.adicionaItem(personagemId,itemId);
+    }
+
+    @PutMapping("/{personagemId}/remove-item-magico/{itemId}")
+    public void removeItem(@PathVariable long personagemId, @PathVariable long itemId){
+        personagemService.removerItem(personagemId,itemId);
     }
 }
