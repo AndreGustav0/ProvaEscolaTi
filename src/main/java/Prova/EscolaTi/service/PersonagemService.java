@@ -2,6 +2,7 @@ package Prova.EscolaTi.service;
 
 import Prova.EscolaTi.dto.PersonagemDto;
 import Prova.EscolaTi.dto.PersonagemDtoEntrada;
+import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,36 @@ public class PersonagemService {
     }
 
     public PersonagemDto listarPorId(Long id){
-       return new PersonagemDto(personagemRepository.findById(id).get());
+       Personagem personagem = personagemRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Personagem não encontrado."));
+
+       int forcaSomada = personagem.getForca();
+       int defesaSomada = personagem.getDefesa();
+
+       if(personagem.getAmuleto() != null){
+           forcaSomada += personagem.getAmuleto().getForca();
+           defesaSomada += personagem.getAmuleto().getDefesa();
+       }
+
+       if(personagem.getItemMagico() != null){
+           for(int i=0; i < personagem.getItemMagico().size(); i++){
+               ItemMagico item = personagem.getItemMagico().get(i);
+               forcaSomada += item.getForca();
+               defesaSomada += item.getDefesa();
+           }
+       }
+
+       PersonagemDto dto = new PersonagemDto();
+       dto.setId(personagem.getId());
+       dto.setNome(personagem.getNome());
+       dto.setNomePersonagem(personagem.getNomePersonagem());
+       dto.setClasse(personagem.getClasse());
+       dto.setLevel(personagem.getLevel());
+       //Colocar List<ItemMagico> e Amuleto ?
+       dto.setForca(forcaSomada);
+       dto.setDefesa(defesaSomada);
+
+       return dto;
     }
 
     public List<PersonagemDto> listarTodos(){
