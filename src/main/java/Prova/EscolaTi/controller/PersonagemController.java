@@ -52,8 +52,13 @@ public class PersonagemController {
         personagemService.removerItem(personagemId,itemId);
     }
 
-    @GetMapping("/lista-de-itens/{id}")
+    @GetMapping("/{id}/lista-de-itens")
     public PersonagemDtoSaida listaDeItens(@PathVariable long id){
         return personagemService.listaDeItens(id);
+    }
+
+    @GetMapping("/{id}/amuleto")
+    public PersonagemDtoSaida amuletoPersonagem(@PathVariable long id){
+        return  personagemService.amuletoPersonagem(id);
     }
 }

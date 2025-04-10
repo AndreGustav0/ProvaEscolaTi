@@ -165,4 +165,25 @@ public class PersonagemService {
 
         return dto;
     }
+
+    public PersonagemDtoSaida amuletoPersonagem(long id){
+        Personagem personagem = personagemRepository.findById(id).get();
+        PersonagemDtoSaida dto = new PersonagemDtoSaida();
+
+        dto.setId(personagem.getId());
+        dto.setNomePersonagem(personagem.getNomePersonagem());
+
+        List<ItemMagico> itens = new ArrayList<>();
+        for(int i=0; i < personagem.getItemMagico().size(); i++){
+            ItemMagico item = personagem.getItemMagico().get(i);
+
+            if(item.getTipoItem().equals(TipoItem.AMULETO)){
+                itens.add(item);
+            }
+        }
+
+        dto.setItensMagicos(itens);
+
+        return dto;
+    }
 }
