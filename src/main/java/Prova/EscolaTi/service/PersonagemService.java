@@ -2,6 +2,7 @@ package Prova.EscolaTi.service;
 
 import Prova.EscolaTi.dto.PersonagemDto;
 import Prova.EscolaTi.dto.PersonagemDtoEntrada;
+import Prova.EscolaTi.dto.PersonagemDtoSaida;
 import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.entities.TipoItem;
@@ -152,5 +153,16 @@ public class PersonagemService {
 
         personagem.getItemMagico().remove(item);
         personagemRepository.save(personagem);
+    }
+
+    public PersonagemDtoSaida listaDeItens (long id){
+        Personagem personagem = personagemRepository.findById(id).get();
+        PersonagemDtoSaida dto = new PersonagemDtoSaida();
+
+        dto.setId(personagem.getId());
+        dto.setNomePersonagem(personagem.getNomePersonagem());
+        dto.setItensMagicos(personagem.getItemMagico());
+
+        return dto;
     }
 }

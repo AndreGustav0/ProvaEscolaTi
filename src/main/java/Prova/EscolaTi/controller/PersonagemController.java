@@ -2,6 +2,7 @@ package Prova.EscolaTi.controller;
 
 import Prova.EscolaTi.dto.PersonagemDto;
 import Prova.EscolaTi.dto.PersonagemDtoEntrada;
+import Prova.EscolaTi.dto.PersonagemDtoSaida;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.service.PersonagemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,10 @@ public class PersonagemController {
     @PutMapping("/{personagemId}/remove-item-magico/{itemId}")
     public void removeItem(@PathVariable long personagemId, @PathVariable long itemId){
         personagemService.removerItem(personagemId,itemId);
+    }
+
+    @GetMapping("/lista-de-itens/{id}")
+    public PersonagemDtoSaida listaDeItens(@PathVariable long id){
+        return personagemService.listaDeItens(id);
     }
 }
