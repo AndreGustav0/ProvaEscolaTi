@@ -4,6 +4,7 @@ import Prova.EscolaTi.dto.PersonagemDto;
 import Prova.EscolaTi.dto.PersonagemDtoEntrada;
 import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.Personagem;
+import Prova.EscolaTi.entities.TipoItem;
 import Prova.EscolaTi.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,14 +41,10 @@ public class PersonagemService {
        int forcaSomada = personagem.getForca();
        int defesaSomada = personagem.getDefesa();
 
-       if(personagem.getAmuleto() != null){
-           forcaSomada += personagem.getAmuleto().getForca();
-           defesaSomada += personagem.getAmuleto().getDefesa();
-       }
-
        if(personagem.getItemMagico() != null){
            for(int i=0; i < personagem.getItemMagico().size(); i++){
                ItemMagico item = personagem.getItemMagico().get(i);
+
                forcaSomada += item.getForca();
                defesaSomada += item.getDefesa();
            }
@@ -76,17 +73,12 @@ public class PersonagemService {
             int forcaSomada = personagem.getForca();
             int defesaSomada = personagem.getDefesa();
 
-            if(personagem.getAmuleto() != null){
-                forcaSomada += personagem.getAmuleto().getForca();
-                defesaSomada += personagem.getAmuleto().getDefesa();
-            }
-
             if(personagem.getItemMagico() != null){
-                for(int x=0; i<personagem.getItemMagico().size(); i++){
+                for(int x=0; x<personagem.getItemMagico().size(); x++){
                     ItemMagico item = personagem.getItemMagico().get(x);
 
-                     forcaSomada += item.getForca();
-                     defesaSomada += item.getDefesa();
+                    forcaSomada += item.getForca();
+                    defesaSomada += item.getDefesa();
                 }
             }
 
@@ -99,7 +91,7 @@ public class PersonagemService {
             //Colocar List<ItemMagico> e Amuleto ?
             dto.setForca(forcaSomada);
             dto.setDefesa(defesaSomada);
-            
+
             dtos.add(dto);
         }
         return dtos;

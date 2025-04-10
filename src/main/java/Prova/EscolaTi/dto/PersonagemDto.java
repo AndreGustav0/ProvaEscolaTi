@@ -23,7 +23,6 @@ public class PersonagemDto {
     private Classe classe;
     private int level;
     private List<ItemMagico> itemMagico;
-    private ItemMagico amuleto;
     private int forca;
     private int defesa;
 

@@ -29,8 +29,6 @@ public class Personagem {
 
     @OneToMany
     private List<ItemMagico> itemMagico;
-    @OneToOne
-    private ItemMagico amuleto;
 
     private int forca;
     private int defesa;
