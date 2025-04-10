@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 @Setter
 @Builder
 public class ItemMagicoDto {
-    private Long id;
+    private long id;
     private String nome;
     @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;

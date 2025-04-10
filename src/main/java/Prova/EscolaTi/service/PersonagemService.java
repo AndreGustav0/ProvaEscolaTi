@@ -5,6 +5,7 @@ import Prova.EscolaTi.dto.PersonagemDtoEntrada;
 import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.entities.TipoItem;
+import Prova.EscolaTi.repository.ItemMagicoRepository;
 import Prova.EscolaTi.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class PersonagemService {
 
     @Autowired
     private PersonagemRepository personagemRepository;
+
+    @Autowired
+    private ItemMagicoRepository itemMagicoRepository;
 
     public Personagem criar(PersonagemDtoEntrada dtoEntrada){
         if(dtoEntrada.getForca() + dtoEntrada.getDefesa() > 10){
@@ -95,5 +99,28 @@ public class PersonagemService {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public void adicionaItem (long personagemId, long itemId){
+        Personagem personagem = personagemRepository.findById(personagemId)
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
+
+        ItemMagico item = itemMagicoRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item Mágico não encontrado"));
+
+        boolean jaTemAmuleto = false;
+
+        for(int i=0; i<personagem.getItemMagico().size(); i++){
+            if(personagem.getItemMagico().get(i).getTipoItem() == TipoItem.AMULETO){
+                jaTemAmuleto = true;
+            }
+        }
+
+        if(item.getTipoItem().equals(TipoItem.AMULETO) && jaTemAmuleto){
+            throw new IllegalArgumentException("Pesonagem já está com um Amuleto");
+        }
+
+        personagem.getItemMagico().add(item);
+        personagemRepository.save(personagem);
     }
 }

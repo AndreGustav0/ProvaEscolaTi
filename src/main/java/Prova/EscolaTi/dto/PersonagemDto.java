@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Builder
 public class PersonagemDto {
-    private Long id;
+    private long id;
     private String nome;
     private String nomePersonagem;
     @Enumerated(EnumType.STRING)

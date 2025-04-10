@@ -22,12 +22,17 @@ public class PersonagemController {
     }
 
     @GetMapping("/{id}")
-    public PersonagemDto listarPorId(@PathVariable Long id){
+    public PersonagemDto listarPorId(@PathVariable long id){
         return personagemService.listarPorId(id);
     }
 
     @GetMapping
     public List<PersonagemDto> listarTodos(){
         return personagemService.listarTodos();
+    }
+
+    @PutMapping("{personagemId}/item-magico/{itemId}")
+    public void adicionaItem(@PathVariable long personagemId, @PathVariable long itemId){
+        personagemService.adicionaItem(personagemId,itemId);
     }
 }
