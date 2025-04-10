@@ -60,7 +60,7 @@ public class PersonagemService {
        dto.setNomePersonagem(personagem.getNomePersonagem());
        dto.setClasse(personagem.getClasse());
        dto.setLevel(personagem.getLevel());
-       //Colocar List<ItemMagico> e Amuleto ?
+       dto.setItemMagico(personagem.getItemMagico());
        dto.setForca(forcaSomada);
        dto.setDefesa(defesaSomada);
 
@@ -92,7 +92,7 @@ public class PersonagemService {
             dto.setNomePersonagem(personagem.getNomePersonagem());
             dto.setClasse(personagem.getClasse());
             dto.setLevel(personagem.getLevel());
-            //Colocar List<ItemMagico> e Amuleto ?
+            dto.setItemMagico(personagem.getItemMagico());
             dto.setForca(forcaSomada);
             dto.setDefesa(defesaSomada);
 
