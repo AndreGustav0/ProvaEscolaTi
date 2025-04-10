@@ -8,6 +8,7 @@ import Prova.EscolaTi.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,6 +68,40 @@ public class PersonagemService {
 
     public List<PersonagemDto> listarTodos(){
         List<Personagem> personagens = personagemRepository.findAll();
-        return personagens.stream().map(PersonagemDto::new).toList();
+        List<PersonagemDto> dtos = new ArrayList<>();
+
+        for(int i=0; i< personagens.size(); i++){
+            Personagem personagem = personagens.get(i);
+
+            int forcaSomada = personagem.getForca();
+            int defesaSomada = personagem.getDefesa();
+
+            if(personagem.getAmuleto() != null){
+                forcaSomada += personagem.getAmuleto().getForca();
+                defesaSomada += personagem.getAmuleto().getDefesa();
+            }
+
+            if(personagem.getItemMagico() != null){
+                for(int x=0; i<personagem.getItemMagico().size(); i++){
+                    ItemMagico item = personagem.getItemMagico().get(x);
+
+                     forcaSomada += item.getForca();
+                     defesaSomada += item.getDefesa();
+                }
+            }
+
+            PersonagemDto dto = new PersonagemDto();
+            dto.setId(personagem.getId());
+            dto.setNome(personagem.getNome());
+            dto.setNomePersonagem(personagem.getNomePersonagem());
+            dto.setClasse(personagem.getClasse());
+            dto.setLevel(personagem.getLevel());
+            //Colocar List<ItemMagico> e Amuleto ?
+            dto.setForca(forcaSomada);
+            dto.setDefesa(defesaSomada);
+            
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
