@@ -1,9 +1,9 @@
 package Prova.EscolaTi.entities;
 
+import Prova.EscolaTi.dto.ItemMagicoDto;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
+import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(name = "tb_itemMagico")
@@ -15,12 +15,16 @@ import java.util.UUID;
 public class ItemMagico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
 
     @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;
     private int forca;
     private int defesa;
+
+    public ItemMagico (ItemMagicoDto dto){
+        BeanUtils.copyProperties(dto, this);
+    }
 }

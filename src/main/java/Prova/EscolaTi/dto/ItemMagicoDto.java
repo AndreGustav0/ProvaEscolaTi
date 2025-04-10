@@ -1,11 +1,11 @@
 package Prova.EscolaTi.dto;
 
+import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.TipoItem;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-
-import java.util.UUID;
+import org.springframework.beans.BeanUtils;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,10 +13,14 @@ import java.util.UUID;
 @Setter
 @Builder
 public class ItemMagicoDto {
-    private UUID id;
+    private Long id;
     private String nome;
     @Enumerated(value = EnumType.STRING)
     private TipoItem tipoItem;
     private int forca;
     private int defesa;
+
+    public ItemMagicoDto (ItemMagico entity){
+        BeanUtils.copyProperties(entity, this);
+    }
 }

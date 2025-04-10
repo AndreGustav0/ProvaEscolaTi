@@ -1,10 +1,11 @@
 package Prova.EscolaTi.entities;
 
+import Prova.EscolaTi.dto.PersonagemDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_personagem")
@@ -16,8 +17,8 @@ import java.util.UUID;
 public class Personagem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String nomePersonagem;
 
@@ -28,4 +29,8 @@ public class Personagem {
     private List<String> itemMagico;
     private int forca;
     private int defesa;
+
+    public Personagem (PersonagemDto dto){
+        BeanUtils.copyProperties(dto, this);
+    }
 }

@@ -1,12 +1,13 @@
 package Prova.EscolaTi.dto;
 
 import Prova.EscolaTi.entities.Classe;
+import Prova.EscolaTi.entities.Personagem;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Builder
 public class PersonagemDto {
-    private UUID id;
+    private Long id;
     private String nome;
     private String nomePersonagem;
     @Enumerated(EnumType.STRING)
@@ -23,4 +24,8 @@ public class PersonagemDto {
     private List<String> itemMagico;
     private int forca;
     private int defesa;
+
+    public PersonagemDto(Personagem personagem){
+        BeanUtils.copyProperties(personagem, this);
+    }
 }
