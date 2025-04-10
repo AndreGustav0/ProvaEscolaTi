@@ -1,6 +1,7 @@
 package Prova.EscolaTi.controller;
 
 import Prova.EscolaTi.dto.PersonagemDto;
+import Prova.EscolaTi.dto.PersonagemDtoEntrada;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.service.PersonagemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class PersonagemController {
     private PersonagemService personagemService;
 
     @PostMapping
-    public Personagem criar(@RequestBody Personagem personagem){
+    public Personagem criar(@RequestBody PersonagemDtoEntrada personagem){
         return personagemService.criar(personagem);
     }
 

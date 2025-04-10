@@ -1,6 +1,7 @@
 package Prova.EscolaTi.service;
 
 import Prova.EscolaTi.dto.PersonagemDto;
+import Prova.EscolaTi.dto.PersonagemDtoEntrada;
 import Prova.EscolaTi.entities.Personagem;
 import Prova.EscolaTi.repository.PersonagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,19 @@ public class PersonagemService {
     @Autowired
     private PersonagemRepository personagemRepository;
 
-    public Personagem criar(Personagem personagem){
-        if(personagem.getForca() + personagem.getDefesa() > 10){
+    public Personagem criar(PersonagemDtoEntrada dtoEntrada){
+        if(dtoEntrada.getForca() + dtoEntrada.getDefesa() > 10){
             throw new IllegalArgumentException("A soma da força e defesa não pode ser maior do que 10 pontos.");
         }
+
+        Personagem personagem = new Personagem();
+        personagem.setNome(dtoEntrada.getNome());
+        personagem.setNomePersonagem(dtoEntrada.getNomePersonagem());
+        personagem.setClasse(dtoEntrada.getClasse());
+        personagem.setLevel(dtoEntrada.getLevel());
+        personagem.setForca(dtoEntrada.getForca());
+        personagem.setDefesa(dtoEntrada.getDefesa());
+
         return personagemRepository.save(personagem);
     }
 

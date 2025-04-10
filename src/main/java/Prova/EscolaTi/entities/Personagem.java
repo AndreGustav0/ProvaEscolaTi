@@ -26,7 +26,12 @@ public class Personagem {
     private Classe classe;
 
     private int level;
-    private List<String> itemMagico;
+
+    @OneToMany
+    private List<ItemMagico> itemMagico;
+    @OneToOne
+    private ItemMagico amuleto;
+
     private int forca;
     private int defesa;
 

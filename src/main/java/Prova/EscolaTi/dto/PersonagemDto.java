@@ -1,6 +1,7 @@
 package Prova.EscolaTi.dto;
 
 import Prova.EscolaTi.entities.Classe;
+import Prova.EscolaTi.entities.ItemMagico;
 import Prova.EscolaTi.entities.Personagem;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,7 +22,8 @@ public class PersonagemDto {
     @Enumerated(EnumType.STRING)
     private Classe classe;
     private int level;
-    private List<String> itemMagico;
+    private List<ItemMagico> itemMagico;
+    private ItemMagico amuleto;
     private int forca;
     private int defesa;
 
